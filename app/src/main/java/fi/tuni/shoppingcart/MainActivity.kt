@@ -14,5 +14,9 @@ class MainActivity : AppCompatActivity() {
         actionBar?.hide()
         setContentView(R.layout.activity_main)
         header = findViewById(R.id.header)
+
+
     }
+
+
 }
