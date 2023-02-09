@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.StringBuilder
+import java.text.SimpleDateFormat
 
 lateinit var header : TextView
 lateinit var listview : TextView
@@ -35,18 +35,22 @@ class MainActivity : AppCompatActivity() {
 
         val retroFitData = retroFitBuilder.getList()
 
-        retroFitData.enqueue(object : Callback<List<Shoppingcart>?> {
+        retroFitData.enqueue(object : Callback<List<items>?> {
             override fun onResponse(
-                call: Call<List<Shoppingcart>?>,
-                response: Response<List<Shoppingcart>?>
+                call: Call<List<items>?>,
+                response: Response<List<items>?>
             ) {
                 val responseBody = response.body()
                 var myStringBuilder = StringBuilder()
+                val DateFor = SimpleDateFormat("dd/MM/yyyy")
                 if(responseBody != null) {
                     for(data in responseBody) {
-                        myStringBuilder.append(data.message)
+                        myStringBuilder.append(data.item)
+                        myStringBuilder.append(" ")
+                        val date = DateFor.format(data.due_date)
+                        myStringBuilder.append(date)
+
                         myStringBuilder.append("\n")
-                        myStringBuilder.append(data.message2)
                     }
 
                     listview.text = myStringBuilder
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<Shoppingcart>?>, t: Throwable) {
+            override fun onFailure(call: Call<List<items>?>, t: Throwable) {
                 listview.text = t.message
 
             }

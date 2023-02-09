@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface CartAPI {
     @GET("shoppingcart")
-    fun getList(): Call<List<Shoppingcart>>
+    fun getList(): Call<List<items>>
 }
